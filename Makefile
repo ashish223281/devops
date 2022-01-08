@@ -15,10 +15,18 @@ install:
 	pip install --upgrade pip &&\
 		pip install -r requirements.txt
 
+exec:
+	chmod +x kubernetes_install.sh
+	chmod +x make_predictions.sh
+	chmod +x resize.sh
+	chmod +x run_kubernetes.sh
+	chmod +x run_docker.sh
+	chmod +x upload_docker.sh
+
 test:
 	# Additional, optional, tests could go here
-	#python -m pytest -vv --cov=myrepolib tests/*.py
-	#python -m pytest --nbval notebook.ipynb
+	python -m pytest -vv --cov=myrepolib tests/*.py
+	python -m pytest --nbval notebook.ipynb
 
 lint:
 	# See local hadolint install instructions:   https://github.com/hadolint/hadolint

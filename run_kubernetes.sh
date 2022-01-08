@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-dockerpath=devops
+dockerpath=ashish223281/devops
 # Run the Docker Hub container with kubernetes
 #kubectl run container --image=$dockerpath --image-pull-policy="Always"
 kubectl create deployment udacityproject --image=$dockerpath
