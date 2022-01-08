@@ -5,13 +5,14 @@
 
 # Step 1:
 # Create dockerpath
-dockerpath=devops
+dockerpath=ashish223281/devops
 
 # Step 2:  
 # Authenticate & tag
+docker login --username ashish223281
+docker tag devops $dockerpath
 echo "Docker ID and Image: $dockerpath"
 
 # Step 3:
 # Push image to a docker repository
-docker tag devops $dockerpath:latest
-docker push $dockerpath:latest
+docker push $dockerpath
