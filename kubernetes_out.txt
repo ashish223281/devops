@@ -1,6 +1,4 @@
-$ minikube version
-minikube version: v1.18.0
-commit: ec61815d60f66a6e4f6353030a40b12362557caa-dirty
+kubectl port-forward udacityproject1-756b6b9dc7-jx7jw 8080:80
 $ minikube start
 * minikube v1.18.0 on Ubuntu 18.04 (amd64)
 * Using the none driver based on existing profile
@@ -19,7 +17,7 @@ X The requested memory allocation of 2200MiB does not leave room for system over
 * Configuring local host environment ...
 * Verifying Kubernetes components...
   - Using image gcr.io/k8s-minikube/storage-provisioner:v4
-* Enabled addons: storage-provisioner, default-storageclass
+* Enabled addons: default-storageclass, storage-provisioner
 * Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 $ docker login --username ashish223281
 Password: 
@@ -28,22 +26,31 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
 Login Succeeded
-$ kubectl run devops --image=ashish223281/devops:latest --port=8080
-pod/devops created
+$ ls
+run_kubernetes.sh
+$ ./run_kubernetes.sh
+-bash: ./run_kubernetes.sh: Permission denied
+$ chmod +x run_kubernetes.sh
+$ ./run_kubernetes.sh
+deployment.apps/udacityproject1 created
+NAME                               READY   STATUS              RESTARTS   AGE
+udacityproject1-64456c757b-86rzt   0/1     ContainerCreating   0          2s
+Error from server (NotFound): pods "udacityproject1-756b6b9dc7-jx7jw" not found
+$ ^C
+$ kubectl port-forward udacityproject1-64456c757b-86rzt 8080:80
+error: unable to forward port because pod is not running. Current status=Pending
 $ kubectl get pods
-NAME     READY   STATUS              RESTARTS   AGE
-devops   0/1     ContainerCreating   0          10s
-$ kubectl port-forward --address 0.0.0.0 pod/devops 8080:80
-Forwarding from 0.0.0.0:8080 -> 80
-^C$ ^C
-$ ^C
-$ ^C
-$ kubectl run devops --image=ashish223281/devops:latest --port=8080
-Error from server (AlreadyExists): pods "devops" already exists
-$ kubectl port-forward --address 0.0.0.0 pod/devops 8080:80
-Forwarding from 0.0.0.0:8080 -> 80
-^C$ ^C
-$ ^C
-$ kubectl get pods
-NAME     READY   STATUS    RESTARTS   AGE
-devops   1/1     Running   0          3m56s
+NAME                               READY   STATUS    RESTARTS   AGE
+udacityproject1-64456c757b-86rzt   1/1     Running   0          72s
+$ kubectl port-forward udacityproject1-64456c757b-86rzt 8080:80
+Forwarding from 127.0.0.1:8080 -> 80
+Forwarding from [::1]:8080 -> 80
+
+--------------FEEDBACK COMMENT-----------------------
+voclabs:~/environment/devops (main) $ ./make_prediction.sh 
+Port: 8080
+{
+  "prediction": [
+    20.35373177134412
+  ]
+}
