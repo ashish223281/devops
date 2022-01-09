@@ -1,0 +1,49 @@
+$ minikube version
+minikube version: v1.18.0
+commit: ec61815d60f66a6e4f6353030a40b12362557caa-dirty
+$ minikube start
+* minikube v1.18.0 on Ubuntu 18.04 (amd64)
+* Using the none driver based on existing profile
+
+X The requested memory allocation of 2200MiB does not leave room for system overhead (total system memory: 2460MiB). You may face stability issues.
+* Suggestion: Start minikube with less memory allocated: 'minikube start --memory=2200mb'
+
+* Starting control plane node minikube in cluster minikube
+* Running on localhost (CPUs=2, Memory=2460MB, Disk=194868MB) ...
+* OS release is Ubuntu 18.04.5 LTS
+* Preparing Kubernetes v1.20.2 on Docker 19.03.13 ...
+  - kubelet.resolv-conf=/run/systemd/resolve/resolv.conf
+  - Generating certificates and keys ...
+  - Booting up control plane ...
+  - Configuring RBAC rules ...
+* Configuring local host environment ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v4
+* Enabled addons: storage-provisioner, default-storageclass
+* Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+$ docker login --username ashish223281
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+$ kubectl run devops --image=ashish223281/devops:latest --port=8080
+pod/devops created
+$ kubectl get pods
+NAME     READY   STATUS              RESTARTS   AGE
+devops   0/1     ContainerCreating   0          10s
+$ kubectl port-forward --address 0.0.0.0 pod/devops 8080:80
+Forwarding from 0.0.0.0:8080 -> 80
+^C$ ^C
+$ ^C
+$ ^C
+$ kubectl run devops --image=ashish223281/devops:latest --port=8080
+Error from server (AlreadyExists): pods "devops" already exists
+$ kubectl port-forward --address 0.0.0.0 pod/devops 8080:80
+Forwarding from 0.0.0.0:8080 -> 80
+^C$ ^C
+$ ^C
+$ kubectl get pods
+NAME     READY   STATUS    RESTARTS   AGE
+devops   1/1     Running   0          3m56s
